@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package event;
+
+option go_package = "./pb";
+
+message EventMess {
+  int64 Id = 1;
+  string Content = 2;
+}
