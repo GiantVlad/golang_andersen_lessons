@@ -7,7 +7,7 @@ type Event struct {
 }
 
 type EventStore interface {
-	Add(e Event)
+	Add(e Event) error
 	Update(e Event) (Event, error)
 	Delete(e *Event) error
 	Get(id int) (Event, error)
@@ -20,8 +20,8 @@ func InitStore(store EventStore) {
 	thisStore = store
 }
 
-func Add(event Event) {
-	thisStore.Add(event)
+func Add(event Event) error {
+	return thisStore.Add(event)
 }
 
 func Update(event Event) (Event, error) {

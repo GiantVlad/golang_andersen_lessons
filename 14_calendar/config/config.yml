@@ -1,0 +1,5 @@
+http_listen:
+  host: localhost
+  port: 3344
+log_file: ./logs/main.log
+log_level: warn # error/warn/info/debug

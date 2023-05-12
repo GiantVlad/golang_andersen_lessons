@@ -10,8 +10,15 @@ type Events []event.Event
 
 var mu = sync.Mutex{}
 
-func (events *Events) Add(e event.Event) {
+func (events *Events) Add(e event.Event) error {
+	for _, el := range *events {
+		if el.Id == e.Id {
+			return fmt.Errorf("the item #%d already exists", e.Id)
+		}
+	}
 	*events = append(*events, e)
+
+	return nil
 }
 
 func (events Events) Get(id int) (event.Event, error) {
@@ -20,7 +27,7 @@ func (events Events) Get(id int) (event.Event, error) {
 			return el, nil
 		}
 	}
-	return event.Event{}, fmt.Errorf("not Found")
+	return event.Event{}, fmt.Errorf("not found")
 }
 
 func (events Events) Update(e event.Event) (event.Event, error) {
@@ -32,7 +39,7 @@ func (events Events) Update(e event.Event) (event.Event, error) {
 			return el, nil
 		}
 	}
-	return event.Event{}, nil
+	return event.Event{}, fmt.Errorf("not found")
 }
 
 func (events *Events) Delete(e *event.Event) error {
@@ -44,7 +51,7 @@ func (events *Events) Delete(e *event.Event) error {
 			return nil
 		}
 	}
-	return fmt.Errorf("not Found")
+	return fmt.Errorf("not found")
 }
 
 func (events *Events) Count() int {
