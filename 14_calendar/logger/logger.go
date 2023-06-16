@@ -7,8 +7,13 @@ import (
 
 func NewLogger(logFile string, level string) *zap.SugaredLogger {
 	zcfg := zap.NewProductionConfig()
+	if logFile == "" {
+		logFile = "stdout"
+	} else {
+		logFile = "./" + logFile
+	}
 	zcfg.OutputPaths = []string{
-		"./" + logFile,
+		logFile,
 	}
 	var err error
 	zcfg.Level, err = zap.ParseAtomicLevel(level)
