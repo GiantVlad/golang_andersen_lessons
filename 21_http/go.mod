@@ -1,4 +1,4 @@
-module github.com/GiantVlad/golang_andersen_lessons/21_http
+module go_andr_less/21_http
 
 go 1.20
 
